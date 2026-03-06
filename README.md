@@ -1,233 +1,63 @@
-# New version!
-A new version is being build, read more about it [here](https://github.com/crashkonijn/GOAP/issues/8).
+[![Discord](https://img.shields.io/discord/1093598557480685578?label=Discord)](https://discord.gg/dCPnHaYNrm)
+[![Documentation](https://img.shields.io/badge/GitBook-Docu-lightblue)](https://goap.crashkonijn.com/)
+[![openupm](https://img.shields.io/npm/v/com.crashkonijn.goap?label=openupm&registry_uri=https://package.openupm.com)](https://openupm.com/packages/com.crashkonijn.goap/)
+[![Asset Store](https://img.shields.io/badge/Asset%20Store-v3.0.24-blue)](https://assetstore.unity.com/packages/slug/252687)
+[![CodeFactor](https://www.codefactor.io/repository/github/crashkonijn/goap/badge)](https://www.codefactor.io/repository/github/crashkonijn/goap)
+![test-status](https://github.com/crashkonijn/GOAP/actions/workflows/main.yml/badge.svg?branch=master)
+![GitHub](https://img.shields.io/github/license/crashkonijn/GOAP)
+![GitHub Repo stars](https://img.shields.io/github/stars/crashkonijn/GOAP?style=social)
+![GitHub forks](https://img.shields.io/github/forks/crashkonijn/GOAP?style=social)
 
-# GOAP
-A multi-threaded GOAP (Goal Oriented Action Planning) system for Unity3D
+# GOAP for Unity
+A robust, multi-threaded Goal Oriented Action Planning (GOAP) system designed for Unity, empowering developers to create complex AI behaviors with ease.
 
-This library was used to create the AI in the game [Basher Beatdown](https://youtu.be/x653mVuNP0A?t=12s), but has been written to function on it's own and as such should be usable in any game.
+This library, a successor to the one used in [Basher Beatdown](https://youtu.be/x653mVuNP0A?t=12s), brings enhanced performance and flexibility to game AI development.
 
-## Functions
-* Simple
-* Fast
-* Multi-Threaded
-* GOAP Visualizer
+![Screenshot of Demo](Package/Documentation/images/2k_agents_short.gif)
 
----
+## Key Features
+- **High Performance**: Optimized for speed, leveraging Unity's job system for multi-threaded operations.
+- **User-Friendly**: Simple setup process, with options for both `ScriptableObjects` and code-based configurations.
+- **Visualization Tools**: Includes a GOAP Visualizer for easy debugging and understanding AI decisions.
+- **Demo Scenes**: Comes with two illustrative demo scenes showcasing the system's capabilities.
+- **Comprehensive Documentation**: Detailed [documentation](https://goap.crashkonijn.com/) for ease of use and integration.
+- **Compatibility**: Built using Unity 2022.2, also confirmed to work seamlessly with Unity 2021.3.
+- **Tested and Proven**: Rigorously tested to ensure reliability and performance.
 
-# Warning
+## Installation
+Integrate GOAP into your Unity project using one of the following methods:
 
-This project uses [CeilaSpike's Thread Ninja](https://www.assetstore.unity3d.com/en/#!/content/15717) for it's multithreading and won't work without it. Please download and import it first before importing this project.
-
----
-
-# Usage
-
-The goap system consists mainly out of 3 parts; The GoapAgent, GoapGoal and GoapAction classes. The examples folder contains a very basic example of a basic implementation
-
-## GoapAgent
-
-The GoapAgent is the core of the AI and handles all goals, actions and calculations.
-
-### Minimal implementation
-```C#
-using SwordGC.AI.Goap;
-
-public class MyGoapAgent : GoapAgent {
-
-    public override void Awake()
-    {
-        base.Awake();
-
-        // Add goals and actions here
-    }
-
-    protected override void Move(GoapAction nextAction)
-    {
-        // Called when the AI needs to move
-    }
-}
+- **Unity Package Manager**:
+Add the package via the package manager using this URL:
 ```
-### Variables
-```C#
-// When set this action will override anything else when it's conditions are true
-protected GoapAction interveneAction;
-
-// Can contain an action that needs to be performed when all other actions fail (idle)
-protected GoapAction idleAction;
-
-```
-### Functions
-```C#
-// Adds an action to the AI
-public void AddAction(GoapAction){}
-
-// Removes an action to the AI
-// Note: This is reference based, not type based
-public void RemoveAction(GoapAction){}
-
-// Implement for a callback when the AI needs to move
-protected override void Move(GoapAction){}
+https://github.com/crashkonijn/GOAP.git?path=/Package#3.1.2
 ```
 
-## GoapGoal
-The start of each AI's decision making, actions are always (sub) child of a goal.
-Best practice is to implement multiple goals, not just a "win" goal with a huge tree beneath it.
+- **OpenUPM**:
+Install through [OpenUPM](https://openupm.com/packages/com.crashkonijn.goap/).
 
-### Minimal implementation
-```C#
-using SwordGC.AI.Goap;
+- **Unity Asset Store**:
+Available on the [Unity Asset Store](https://assetstore.unity.com/packages/slug/252687).
 
-public class MyGoapGoal : GoapGoal
-{
-    public MyGoapGoal(string key, float multiplier = 1) : base(key, multiplier)
-    {
+## Node Viewer
+Visualize your GOAP nodes and their interactions with our intuitive Node Viewer.
 
-    }
+![Screenshot of NodeViewer](Package/Documentation/images/goap-viewer.png)
 
-    public override void UpdateMultiplier(DataSet data)
-    {
-        // fancy function that lowers the multiplier if another player kills this AI often
-    }
-}
-```
-### Variables
-```C#
-// The cost of a goal is multiplied by this value. Default is 1, lower value to make this goal more attractive;
-public float multiplier;
-```
-### Functions
-```C#
-// Implement to update the multiplier when needed
-public virtual void UpdateMultiplier(DataSet){}
-```
-## GoapAction
+## Documentation and Examples
+- **Documentation**: Access comprehensive guides and API references in the `Package/Documentation` folder or visit [goap.crashkonijn.com](https://goap.crashkonijn.com/).
+- **Demos**: Explore practical implementations in the Demo folder. Simply clone this repository and open the Demo project in Unity to get started.
 
-The GoapAction class is probably the most important in this system. Based on the data in this class the GOAP will create an action tree and choose the right action.
+## Showcase
+- [Basher Beatdown](https://www.youtube.com/watch?v=3h9e8gTUqOo)
+- [Toy Shop Simulator](https://store.steampowered.com/app/3163790/Toy_Shop_Simulator/)
+- [Earthlings](https://store.steampowered.com/app/3508530/Earthlings/)
+- [External](https://store.steampowered.com/app/3299010/External/)
 
-### Minimal/Example implementation
+## Sponsoring
+If you'd like to sponsor the project, this can be done through my [GitHub Sponsor](https://github.com/sponsors/crashkonijn) page or by buying the [Support Edition](https://assetstore.unity.com/packages/slug/298995) on the Unity Asset Store.
 
-```C#
-using SwordGC.AI.Goap;
-
-namespace SwordGC.AI.Actions
-{
-    public class MyGoapAction : GoapAction
-    {
-        private int targetPlayerId;
-
-        public MyGoapAction(GoapAgent agent, int targetPlayerId) : base(agent)
-        {
-            effects.Add(Effects.KNOCKED_OUT_PLAYER + targetPlayerId, true);
-            
-            requiredRange = 4f;
-            cost = 50;
-
-            this.targetPlayerId = targetPlayerId;
-            this.targetString = "Player_" + targetPlayerId;
-        }
-
-        protected override bool CheckProceduralPreconditions(DataSet data)
-        {
-            // Check all procedural preconditions
-            // Example:
-            // if(!needAmmo || !ammoInRange) return false;
-
-            return base.CheckProceduralPreconditions(data);
-        }
-
-        public override void Perform()
-        {
-            // Code to perform this action
-        }
-
-        public override GoapAction Clone()
-        {
-            return new KnockoutPlayerAction(agent, targetPlayerId).SetClone(originalObjectGUID);
-        }
-    }
-}
-```
-### Variables
-```C#
-// Optional: When set to the key of a matching goal it will parent itself directly under that goal
-public string goal;
-
-// Optional: Add the preconditions to this dictionary
-public Dictionary<string, bool> preconditions ;
-
-// Required: Add the effects of the action to this, is used to chain with other actions that have preconditions
-public Dictionary<string, bool> effects;
-
-// Required: The cost of this actions 
-public float cost;
-
-// Optional: How much delay should be aplied before performing this action (value between 0 (slow) and 1 (fast))
-protected float delay = 0.5f;
-
-// Optional: The delay in seconds when the delay value == 0
-protected float delaySlow = 0.3f;
-
-// Optional: The delay in seconds when the delay value == 1
-protected float delayFast = 0.1f;
-
-// Optional: The action get's disabled shortly after running for this long to prevent getting stuck
-protected float maxRunTime = 3f;
-
-// Required: When not in range, the AI wil try to move closer
-public float requiredRange;
-
-// Required: Is used to search for a target when no gameObject target is cached
-public string targetString;
-
-// Optional: Can be used to easilly remove this action when it's target is destroyed
-public bool removeWhenTargetless = false;
-
-// Optional: A string describing this action, usefull for debugging
-protected string description;
-
-// There's loads more variables, but are mostly for internal caching and usage
-
-```
-### Functions
-
-```C#
-// Should be implemented to check if all procedural preconditions are true
-protected virtual bool CheckProceduralPreconditions(DataSet data){}
-
-// Required: Is called when this action needs to be performed (During FixedUpdate)
-public virtual void Perform(){}
-
-// Required: Implement as in the example, don't forget the .SetClone(originalObjectGUID);
-public virtual void Clone(){}
-
-// Called when this actions is first run
-public virtual void OnStart(){}
-
-// Called when another action is becoming active
-public virtual void OnStop(){}
-
-```
-
-## DataSet
-
-DataSet should contain all the data that the GoapAction.preconditions are checked against.
-
-### Functions
-
-```C#
-// Used to update data
-public void SetData(string, bool){}
-
-// Used to check data
-public void Equals(string, bool){}
-```
-
-## GOAP visualizer
-The GOAP visualizer gives a good overview of exactly what is going on within the GOAP system.
-
-It can be found under Window -> GOAP Visualizer
-![alt text](http://i.imgur.com/8qmyrSQ.png "Visual overview of all node trees")
-
-
-
-
+## References
+- **[YouTube tutorials](https://www.youtube.com/playlist?list=PLZWmMt_TbeYeatHa9hntDPu4zGEBAFffn)** on how to use the library.
+- **[YouTube references](https://www.youtube.com/playlist?list=PLZWmMt_TbeYdBZKvlsRuuOubPTTfPuZot)** discussing GOAP in general.
+- **[YouTube mentions](https://www.youtube.com/playlist?list=PLZWmMt_TbeYdaEY4dkSJt4w2X_b_Pf97T)** about this project.
